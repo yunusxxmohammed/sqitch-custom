@@ -6,7 +6,8 @@
 /MANIFEST.bak
 /*META.*
 /Build
-/Makefile*
+/Makefile
+!/Makefile.PL
 /pm_to_blib
 /App-Sqitch-*
 *.rpm

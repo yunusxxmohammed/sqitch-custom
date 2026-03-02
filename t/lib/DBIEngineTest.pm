@@ -2092,7 +2092,7 @@ sub all_events {
 sub get_dependencies {
     shift->dbh->selectall_arrayref(q{
         SELECT change_id, type, dependency, dependency_id
-          FROM dependencies
+          FROM sqitch_dependencies
          WHERE change_id = ?
          ORDER BY dependency
     }, undef, shift);

@@ -90,7 +90,7 @@ CREATE TABLE tags (
   COMMENT 'Tracks the tags currently applied to the database.'
 ;
 
-CREATE TABLE dependencies (
+CREATE TABLE sqitch_dependencies (
     change_id       VARCHAR(40)  NOT NULL
                     COMMENT 'ID of the depending change.'
                     REFERENCES changes(change_id) ON UPDATE CASCADE ON DELETE CASCADE,

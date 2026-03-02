@@ -650,14 +650,14 @@ END {
     $dbh->{PrintError} = 1;
     $dbh->do($_) for (
         'DROP TABLE events',
-        'DROP TABLE dependencies',
+        'DROP TABLE sqitch_dependencies',
         'DROP TABLE tags',
         'DROP TABLE changes',
         'DROP TABLE projects',
         'DROP TABLE releases',
         'DROP TYPE  sqitch_array',
         "DROP TABLE $alt_reg.events",
-        "DROP TABLE $alt_reg.dependencies",
+        "DROP TABLE $alt_reg.sqitch_dependencies",
         "DROP TABLE $alt_reg.tags",
         "DROP TABLE $alt_reg.changes",
         "DROP TABLE $alt_reg.projects",

@@ -541,7 +541,7 @@ sub log_deploy_change {
 
     if ( my @deps = $change->dependencies ) {
         $dbh->do(q{
-            INSERT INTO dependencies(
+            INSERT INTO sqitch_dependencies(
                   change_id
                 , type
                 , dependency
