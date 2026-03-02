@@ -84,7 +84,7 @@ COMMENT ON COLUMN :"registry".tags.planned_at      IS 'Date the tag was added to
 COMMENT ON COLUMN :"registry".tags.planner_name    IS 'Name of the user who planed the tag.';
 COMMENT ON COLUMN :"registry".tags.planner_email   IS 'Email address of the user who planned the tag.';
 
-CREATE TABLE :"registry".dependencies (
+CREATE TABLE :"registry".sqitch_dependencies (
     change_id       TEXT        NOT NULL REFERENCES :"registry".changes(change_id) ON UPDATE CASCADE ON DELETE CASCADE,
     type            TEXT        NOT NULL,
     dependency      TEXT        NOT NULL,
@@ -95,11 +95,11 @@ CREATE TABLE :"registry".dependencies (
     PRIMARY KEY (change_id, dependency)
 );
 
-COMMENT ON TABLE  :"registry".dependencies               IS 'Tracks the currently satisfied dependencies.';
-COMMENT ON COLUMN :"registry".dependencies.change_id     IS 'ID of the depending change.';
-COMMENT ON COLUMN :"registry".dependencies.type          IS 'Type of dependency.';
-COMMENT ON COLUMN :"registry".dependencies.dependency    IS 'Dependency name.';
-COMMENT ON COLUMN :"registry".dependencies.dependency_id IS 'Change ID the dependency resolves to.';
+COMMENT ON TABLE  :"registry".sqitch_dependencies               IS 'Tracks the currently satisfied dependencies.';
+COMMENT ON COLUMN :"registry".sqitch_dependencies.change_id     IS 'ID of the depending change.';
+COMMENT ON COLUMN :"registry".sqitch_dependencies.type          IS 'Type of dependency.';
+COMMENT ON COLUMN :"registry".sqitch_dependencies.dependency    IS 'Dependency name.';
+COMMENT ON COLUMN :"registry".sqitch_dependencies.dependency_id IS 'Change ID the dependency resolves to.';
 
 CREATE TABLE :"registry".events (
     event           TEXT        NOT NULL CHECK (event IN ('deploy', 'revert', 'fail')),

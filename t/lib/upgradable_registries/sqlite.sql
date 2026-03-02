@@ -43,7 +43,7 @@ CREATE TABLE tags (
     UNIQUE(project, tag)
 );
 
-CREATE TABLE dependencies (
+CREATE TABLE sqitch_dependencies (
     change_id       TEXT        NOT NULL REFERENCES changes(change_id) ON UPDATE CASCADE ON DELETE CASCADE,
     type            TEXT        NOT NULL,
     dependency      TEXT        NOT NULL,

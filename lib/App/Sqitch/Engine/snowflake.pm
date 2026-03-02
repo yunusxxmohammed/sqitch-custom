@@ -409,7 +409,7 @@ sub changes_requiring_change {
               FROM tags
         )
         SELECT c.change_id, c.project, c.change, t.tag AS asof_tag
-          FROM dependencies d
+          FROM sqitch_dependencies d
           JOIN changes  c ON c.change_id = d.change_id
           LEFT JOIN tag t ON t.project   = c.project AND t.committed_at >= c.committed_at
          WHERE d.dependency_id = ?

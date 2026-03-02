@@ -25,7 +25,7 @@ SELECT constraint_name AS cname
           AND column_name = 'TYPE'
    );
 
-ALTER TABLE &registry..dependencies
+ALTER TABLE &registry..sqitch_dependencies
       RENAME CONSTRAINT &check_name TO dependencies_check;
 
 

@@ -53,7 +53,7 @@ CREATE TABLE :"registry".tags (
 
 COMMENT ON TABLE :"registry".tags IS 'Tracks the tags currently applied to the database.';
 
-CREATE TABLE :"registry".dependencies (
+CREATE TABLE :"registry".sqitch_dependencies (
     change_id       CHAR(40)      NOT NULL REFERENCES :"registry".changes(change_id),
     type            VARCHAR(8)    NOT NULL ENCODING AUTO,
     dependency      VARCHAR(2048) NOT NULL,
@@ -61,7 +61,7 @@ CREATE TABLE :"registry".dependencies (
     PRIMARY KEY (change_id, dependency) ENABLED
 );
 
-COMMENT ON TABLE :"registry".dependencies IS 'Tracks the currently satisfied dependencies.';
+COMMENT ON TABLE :"registry".sqitch_dependencies IS 'Tracks the currently satisfied dependencies.';
 
 CREATE TABLE :"registry".events (
     event           VARCHAR(6)     NOT NULL ENCODING AUTO,

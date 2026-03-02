@@ -655,7 +655,7 @@ sub changes_requiring_change {
              ORDER BY c2.committed_at
              LIMIT 1
         ) AS asof_tag
-          FROM dependencies d
+          FROM sqitch_dependencies d
           JOIN changes c ON c.change_id = d.change_id
          WHERE d.dependency_id = ?
     }, { Slice => {} }, $change->id) };
@@ -752,7 +752,7 @@ sub log_revert_change {
     # Retrieve dependencies and delete.
     my $sth = $dbh->prepare(q{
         SELECT dependency
-          FROM dependencies
+          FROM sqitch_dependencies
          WHERE change_id = ?
            AND type      = ?
     });
@@ -764,7 +764,7 @@ sub log_revert_change {
         $sth, undef, $cid, 'conflict'
     ) };
 
-    $dbh->do('DELETE FROM dependencies WHERE change_id = ?', undef, $cid);
+    $dbh->do('DELETE FROM sqitch_dependencies WHERE change_id = ?', undef, $cid);
 
     # Delete the change record.
     $dbh->do(

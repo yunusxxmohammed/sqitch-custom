@@ -553,7 +553,7 @@ sub log_revert_change {
     # Retrieve dependencies and delete.
     my $sth = $dbh->prepare(q{
         SELECT dependency
-          FROM dependencies
+          FROM sqitch_dependencies
          WHERE change_id = ?
            AND type      = ?
     });
@@ -561,7 +561,7 @@ sub log_revert_change {
     my $req = $dbh->selectcol_arrayref( $sth, undef, $cid, 'require' );
     my $conf = $dbh->selectcol_arrayref( $sth, undef, $cid, 'conflict' );
 
-    $dbh->do('DELETE FROM dependencies WHERE change_id = ?', undef, $cid);
+    $dbh->do('DELETE FROM sqitch_dependencies WHERE change_id = ?', undef, $cid);
 
     # Delete the change record.
     $dbh->do(
@@ -594,7 +594,7 @@ sub changes_requiring_change {
                c.project   AS project,
                c.change    AS change,
                multiIf(t.tag == '', NULL, t.tag) AS asof_tag
-          FROM dependencies d
+          FROM sqitch_dependencies d
           JOIN changes  c ON c.change_id = d.change_id
           LEFT JOIN tag t ON t.project   = c.project AND t.committed_at >= c.committed_at
          WHERE d.dependency_id = ?

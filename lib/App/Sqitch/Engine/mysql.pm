@@ -297,7 +297,7 @@ sub begin_work {
     # Start transaction and lock all tables to disallow concurrent changes.
     $dbh->do('LOCK TABLES ' . join ', ', map {
         "$_ WRITE"
-    } qw(releases changes dependencies events projects tags));
+    } qw(releases changes sqitch_dependencies events projects tags));
     $dbh->begin_work;
     return $self;
 }

@@ -409,12 +409,12 @@ sub log_revert_change {
     my ($req, $conf) = $dbh->selectrow_array(q{
         SELECT ARRAY(
             SELECT dependency
-              FROM dependencies
+              FROM sqitch_dependencies
              WHERE change_id = $1
                AND type = 'require'
         ), ARRAY(
             SELECT dependency
-              FROM dependencies
+              FROM sqitch_dependencies
              WHERE change_id = $1
                AND type = 'conflict'
         )

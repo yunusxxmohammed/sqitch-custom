@@ -93,7 +93,7 @@ CREATE TABLE tags (
   COMMENT 'Tracks the tags currently applied to the database.'
 ;
 
-CREATE TABLE dependencies (
+CREATE TABLE sqitch_dependencies (
     change_id       VARCHAR(40)  NOT NULL
                     COMMENT 'ID of the depending change.'
                     REFERENCES changes(change_id) ON UPDATE CASCADE ON DELETE CASCADE,
@@ -149,7 +149,7 @@ CREATE TABLE events (
 -- ## BEGIN 5.5
 DELIMITER |
 
-CREATE TRIGGER ck_insert_dependency BEFORE INSERT ON dependencies
+CREATE TRIGGER ck_insert_dependency BEFORE INSERT ON sqitch_dependencies
 FOR EACH ROW BEGIN
     IF (NEW.type = 'require' AND NEW.dependency_id IS NULL)
     OR (NEW.type = 'conflict' AND NEW.dependency_id IS NOT NULL)
@@ -159,7 +159,7 @@ FOR EACH ROW BEGIN
 END;
 |
 
-CREATE TRIGGER ck_update_dependency BEFORE UPDATE ON dependencies
+CREATE TRIGGER ck_update_dependency BEFORE UPDATE ON sqitch_dependencies
 FOR EACH ROW BEGIN
     IF (NEW.type = 'require'  AND NEW.dependency_id IS NULL)
     OR (NEW.type = 'conflict' AND NEW.dependency_id IS NOT NULL)

@@ -104,7 +104,7 @@ COMMENT ON COLUMN tags.planner_email   IS 'Email address of the user who planned
 
 -- Table: dependencies
 
-CREATE TABLE dependencies (
+CREATE TABLE sqitch_dependencies (
     change_id       CHAR(40)      NOT NULL REFERENCES changes(change_id)
                                         ON UPDATE CASCADE ON DELETE CASCADE,
     type            VARCHAR(8)    NOT NULL,
@@ -117,11 +117,11 @@ CREATE TABLE dependencies (
     PRIMARY KEY (change_id, dependency)
 );
 
-COMMENT ON TABLE  dependencies               IS 'Tracks the currently satisfied dependencies.';
-COMMENT ON COLUMN dependencies.change_id     IS 'ID of the depending change.';
-COMMENT ON COLUMN dependencies.type          IS 'Type of dependency.';
-COMMENT ON COLUMN dependencies.dependency    IS 'Dependency name.';
-COMMENT ON COLUMN dependencies.dependency_id IS 'Change ID the dependency resolves to.';
+COMMENT ON TABLE  sqitch_dependencies               IS 'Tracks the currently satisfied dependencies.';
+COMMENT ON COLUMN sqitch_dependencies.change_id     IS 'ID of the depending change.';
+COMMENT ON COLUMN sqitch_dependencies.type          IS 'Type of dependency.';
+COMMENT ON COLUMN sqitch_dependencies.dependency    IS 'Dependency name.';
+COMMENT ON COLUMN sqitch_dependencies.dependency_id IS 'Change ID the dependency resolves to.';
 
 -- Table: events
 

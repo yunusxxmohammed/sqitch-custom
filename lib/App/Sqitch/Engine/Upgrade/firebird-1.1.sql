@@ -37,7 +37,7 @@ COMMIT;
 ALTER TABLE changes ADD UNIQUE (project, script_hash);
 
 -- Give the check constraints name consistent with other engines.
-ALTER TABLE dependencies ADD CONSTRAINT dependencies_check CHECK (
+ALTER TABLE sqitch_dependencies ADD CONSTRAINT dependencies_check CHECK (
        (type = 'require'  AND dependency_id IS NOT NULL)
     OR (type = 'conflict' AND dependency_id IS NULL)
 );

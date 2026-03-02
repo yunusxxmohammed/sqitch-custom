@@ -565,7 +565,7 @@ sub changes_requiring_change {
                AND c2.committed_at >= c.committed_at
              ORDER BY c2.committed_at
         ) AS asof_tag
-          FROM dependencies d
+          FROM sqitch_dependencies d
           JOIN changes c ON c.change_id = d.change_id
          WHERE d.dependency_id = ?
     }, { Slice => {} }, $change->id) };
@@ -845,7 +845,7 @@ sub log_deploy_change {
     if ( my @deps = $change->dependencies ) {
         foreach my $dep (@deps) {
             my $sql = q{
-            INSERT INTO dependencies (
+            INSERT INTO sqitch_dependencies (
                   change_id
                 , type
                 , dependency

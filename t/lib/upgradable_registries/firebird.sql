@@ -205,7 +205,7 @@ UPDATE RDB$RELATION_FIELDS
 
 -- Table: dependencies
 
-CREATE TABLE dependencies (
+CREATE TABLE sqitch_dependencies (
     change_id       CHAR(40)      NOT NULL REFERENCES changes(change_id)
                                        ON UPDATE CASCADE ON DELETE CASCADE,
     type            VARCHAR(8)    NOT NULL,

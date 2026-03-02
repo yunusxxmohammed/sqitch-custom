@@ -7,7 +7,7 @@
 --      mysql -u root sqitch --execute "source `sqitch --etc`/tools/upgrade-registry-to-mysql-5.5.0.sql'
 
 DELIMITER |
-CREATE TRIGGER ck_insert_dependency BEFORE INSERT ON dependencies
+CREATE TRIGGER ck_insert_dependency BEFORE INSERT ON sqitch_dependencies
 FOR EACH ROW BEGIN
     IF (NEW.type = 'require' AND NEW.dependency_id IS NULL)
     OR (NEW.type = 'conflict' AND NEW.dependency_id IS NOT NULL)
@@ -17,7 +17,7 @@ FOR EACH ROW BEGIN
 END;
 |
 
-CREATE TRIGGER ck_update_dependency BEFORE UPDATE ON dependencies
+CREATE TRIGGER ck_update_dependency BEFORE UPDATE ON sqitch_dependencies
 FOR EACH ROW BEGIN
     IF (NEW.type = 'require'  AND NEW.dependency_id IS NULL)
     OR (NEW.type = 'conflict' AND NEW.dependency_id IS NOT NULL)

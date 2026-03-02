@@ -147,7 +147,7 @@ CREATE TABLE events (
 -- MySQL does not support checks, so we kind of create our own.
 
 DELIMITER |
-CREATE TRIGGER ck_insert_dependency BEFORE INSERT ON dependencies
+CREATE TRIGGER ck_insert_dependency BEFORE INSERT ON sqitch_dependencies
 FOR EACH ROW BEGIN
     IF (NEW.type = 'require' AND NEW.dependency_id IS NULL)
     OR (NEW.type = 'conflict' AND NEW.dependency_id IS NOT NULL)
@@ -157,7 +157,7 @@ FOR EACH ROW BEGIN
 END;
 |
 
-CREATE TRIGGER ck_update_dependency BEFORE UPDATE ON dependencies
+CREATE TRIGGER ck_update_dependency BEFORE UPDATE ON sqitch_dependencies
 FOR EACH ROW BEGIN
     IF (NEW.type = 'require'  AND NEW.dependency_id IS NULL)
     OR (NEW.type = 'conflict' AND NEW.dependency_id IS NOT NULL)

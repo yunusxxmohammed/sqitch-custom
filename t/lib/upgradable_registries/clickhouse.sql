@@ -87,7 +87,7 @@ CREATE TABLE tags (
   SETTINGS enable_block_number_column = 1, enable_block_offset_column = 1
   COMMENT 'Tracks the tags currently applied to the database.';
 
-CREATE TABLE dependencies (
+CREATE TABLE sqitch_dependencies (
     change_id       TEXT        NOT NULL
                     COMMENT 'ID of the depending change.',
     type            TEXT        NOT NULL
